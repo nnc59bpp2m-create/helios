@@ -1,0 +1,17 @@
+{
+  "name": "helios-miniprogram",
+  "version": "1.0.0",
+  "description": "Zepp OS Mini Program for Helio Ring/Strap sensor data streaming",
+  "main": "app.js",
+  "scripts": {
+    "build": "zeus build",
+    "upload": "zeus upload",
+    "dev": "zeus dev"
+  },
+  "dependencies": {
+    "zml": "^1.0.0"
+  },
+  "devDependencies": {
+    "@zeppos/zeus-cli": "^2.0.0"
+  }
+}

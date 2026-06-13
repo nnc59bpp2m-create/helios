@@ -1,0 +1,47 @@
+{
+  "projectType": "mini_program",
+  "version": "1.0.0",
+  "appType": "app",
+  "deviceApp": {
+    "uuid": "helios-device-app",
+    "versionCode": 1,
+    "versionName": "1.0.0",
+    "minApiLevel": 200,
+    "targetApiLevel": 420,
+    "permissions": [
+      "sensor:heart_rate",
+      "sensor:blood_oxygen",
+      "sensor:temperature",
+      "sensor:eda",
+      "sensor:accelerometer",
+      "sensor:gyroscope",
+      "sensor:sleep",
+      "ble:central"
+    ],
+    "delegatedPermissions": [],
+    "icons": {
+      "120x120": "assets/icon.png"
+    }
+  },
+  "sideService": {
+    "uuid": "helios-side-service",
+    "versionCode": 1,
+    "versionName": "1.0.0",
+    "minApiLevel": 200,
+    "targetApiLevel": 420,
+    "requiredPermissions": [
+      "network:fetch",
+      "storage:settings"
+    ]
+  },
+  "settingsApp": {
+    "uuid": "helios-settings-app",
+    "versionCode": 1,
+    "versionName": "1.0.0"
+  },
+  "regions": ["global"],
+  "developer": {
+    "name": "Helios Team",
+    "contact": "github.com/nnc59bpp2m-create/helios"
+  }
+}

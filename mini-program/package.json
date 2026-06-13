@@ -1,0 +1,19 @@
+{
+  "name": "helios-miniprogram",
+  "version": "1.0.0",
+  "description": "Zepp OS Mini Program for Helio Ring/Strap - Device App + Side Service",
+  "private": true,
+  "scripts": {
+    "build:device": "zeus build device-app",
+    "build:side": "zeus build side-service",
+    "build": "npm run build:device && npm run build:side",
+    "upload": "zeus upload"
+  },
+  "devDependencies": {
+    "@zeppos/zeus": "^3.0.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

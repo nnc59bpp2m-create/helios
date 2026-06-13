@@ -1,0 +1,17 @@
+# Helios Progress Monitor Cron Jobs
+# Add to crontab with: crontab -e
+
+# Check progress every 15 minutes
+*/15 * * * * /home/hermes/helios/scripts/progress_monitor.py >> /home/hermes/helios/.progress-cron.log 2>&1
+
+# Full health check every hour
+0 * * * * /home/hermes/helios/scripts/progress_monitor.py --full >> /home/hermes/helios/.progress-cron.log 2>&1
+
+# Daily summary at 9 AM
+0 9 * * * /home/hermes/helios/scripts/progress_monitor.py --daily-summary >> /home/hermes/helios/.progress-cron.log 2>&1
+
+# Restart Docker services if down (every 30 min)
+*/30 * * * * cd /home/hermes/helios && docker-compose ps --format "table {{.Service}}\t{{.State}}" | grep -E "(Exit|Dead)" && docker-compose restart >> /home/hermes/helios/.docker-watchdog.log 2>&1
+
+# Auto-push uncommitted changes every hour (if CI passes)
+0 * * * * cd /home/hermes/helios && git diff --quiet || (git add -A && git commit -m "chore: auto-save progress" && git push) >> /home/hermes/helios/.git-auto-push.log 2>&1

@@ -1,0 +1,16 @@
+[Unit]
+Description=Helios Progress Monitor
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/hermes/helios
+ExecStart=/home/hermes/helios/scripts/progress_monitor.py
+StandardOutput=journal
+StandardError=journal
+User=hermes
+Group=hermes
+
+[Install]
+WantedBy=multi-user.target
