@@ -15,7 +15,7 @@ class SensorReading(Base):
     __tablename__ = "sensor_readings"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    device_id = Column(String(64), nullable=False, index=True)
+    device_id = Column(String(64), ForeignKey("devices.device_id"), nullable=False, index=True)
     metric_type = Column(String(32), nullable=False, index=True)  # hr, hrv_sdnn, hrv_rmssd, spo2, skin_temp, eda, accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z
     value = Column(Float, nullable=False)
     timestamp_ms = Column(BigInteger, nullable=False, index=True)
