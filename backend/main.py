@@ -9,7 +9,7 @@ from contextlib import asynccontextmanager
 import os
 
 from backend.config import settings
-from backend.models import init_db, get_engine, get_session_factory
+from backend.database import init_db, get_db, engine, SessionLocal
 from backend.routers import health, ingest, metrics, sleep, activity, export, sync, coach, calendar, correlation, leaderboard
 
 # Configure logging
@@ -21,9 +21,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Database
-engine = get_engine(settings.database_url)
-SessionLocal = get_session_factory(engine)
-
+# Database
+# Using engine and SessionLocal from backend.database module
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -87,15 +86,6 @@ def custom_openapi():
 
 
 app.openapi = custom_openapi
-
-
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 # Exception handlers
@@ -211,6 +201,6 @@ if __name__ == "__main__":
     uvicorn.run(
         "backend.main:app",
         host=settings.host,
-        port=9000,
+        port=8080,
         reload=settings.debug
     )
