@@ -113,7 +113,7 @@ export function TimeSeriesChart({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="h-[{height}px]".replace('{height}', height.toString())>
+        <div style={{ height: height + 'px', width: '100%' }}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={chartData}
