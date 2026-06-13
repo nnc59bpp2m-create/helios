@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Grid, Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/Card'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/Card'
 import { KPICard } from '../components/kpi/KPICard'
 import { TimeSeriesChart } from '../components/charts/TimeSeriesChart'
 import { useKPIs, useTimeSeries, useDevices, useReadiness } from '../hooks/useMetrics'
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../components/ui/Select'
+import { Select } from '../components/ui/Select'
 import { Loader2 } from 'lucide-react'
+import { clsx } from 'clsx'
 
 const HR_ZONES = [
   { name: 'Zone 1', min: 0, max: 120, color: '#22c55e' },
@@ -42,18 +43,13 @@ export function Dashboard() {
           <p className="text-surface-500 dark:text-surface-400 mt-1">Health analytics overview for your Helio Ring/Strap</p>
         </div>
         <div className="flex items-center gap-3">
-          <Select value={selectedDevice} onValueChange={setSelectedDevice}>
-            <SelectTrigger className="w-[200px]">
-              <SelectValue placeholder="All devices" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">All devices</SelectItem>
-              {devices?.map(d => (
-                <SelectItem key={d.device_id} value={d.device_id}>
-                  {d.name || d.device_id} ({d.type})
-                </SelectItem>
-              ))}
-            </SelectContent>
+          <Select value={selectedDevice} onChange={setSelectedDevice}>
+            <option value="">All devices</option>
+            {devices?.map(d => (
+              <option key={d.device_id} value={d.device_id}>
+                {d.name || d.device_id} ({d.type})
+              </option>
+            ))}
           </Select>
         </div>
       </div>
