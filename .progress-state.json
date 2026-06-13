@@ -1,8 +1,8 @@
 {
-  "last_check": "2026-06-13T13:00:02.283505",
-  "last_commit": "f4a1e4bab570d2bc202da17dfb5a1576a403aac7|chore: auto-save progress|2026-06-13 13:00:02 +0800",
+  "last_check": "2026-06-13T13:45:01.552825",
+  "last_commit": "b3d0b4812cb08f07fdb6c646be248e77c0b4d607|fix: Fix database foreign key and API routes|2026-06-13 13:05:31 +0800",
   "ci_status": "failure",
-  "health_score": 30,
+  "health_score": 20,
   "blocked_since": "2026-06-13T11:15:22.134456",
   "restart_count": 3
 }
