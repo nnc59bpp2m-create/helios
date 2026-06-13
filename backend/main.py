@@ -1,10 +1,12 @@
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.openapi.utils import get_openapi
+from fastapi.staticfiles import StaticFiles
 import logging
 import sys
 from contextlib import asynccontextmanager
+import os
 
 from backend.config import settings
 from backend.models import init_db, get_engine, get_session_factory

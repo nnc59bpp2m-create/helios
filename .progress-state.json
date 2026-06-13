@@ -1,8 +1,8 @@
 {
-  "last_check": "2026-06-13T11:30:02.099662",
-  "last_commit": "023d73dbfd36f5425de469a8b9a4e550e745dbce|feat: Complete Helios implementation - U11-U14, U19 + progress monitoring|2026-06-13 11:15:54 +0800",
+  "last_check": "2026-06-13T11:45:01.389090",
+  "last_commit": "3caf73f7ef4fc3dab5e00b73f5fde182605b1542|chore: auto-commit progress|2026-06-13 11:30:04 +0800",
   "ci_status": "failure",
   "health_score": 20,
   "blocked_since": "2026-06-13T11:15:22.134456",
-  "restart_count": 2
+  "restart_count": 3
 }
