@@ -129,9 +129,73 @@ app.include_router(calendar.router, prefix="/api/v1/calendar", tags=["Calendar"]
 app.include_router(correlation.router, prefix="/api/v1/correlation", tags=["Correlation"])
 app.include_router(leaderboard.router, prefix="/api/v1/leaderboard", tags=["Leaderboard"])
 
+def get_helios_index_html() -> str:
+    return """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Helios - Helio Ring/Strap Health Analytics with AI Coaching & Stress Calendar Correlation" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Helios" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <title>Helios - Helio Health Analytics</title>
+  <script>
+    (function() {
+      try {
+        var theme = localStorage.getItem('theme');
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && systemDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="min-h-screen bg-surface-50 dark:bg-surface-950 text-surface-900 dark:text-surface-50 antialiased">
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>"""
 
-# Root endpoint
-@app.get("/")
+# Static file serving for frontend
+DIST_DIR = os.path.join(os.path.dirname(__file__), "dist")
+if os.path.exists(DIST_DIR):
+    app.mount("/assets", StaticFiles(directory=os.path.join(DIST_DIR, "assets")), name="assets")
+    
+    @app.get("/")
+    async def serve_index():
+        from fastapi.responses import HTMLResponse
+        response = HTMLResponse(content=get_helios_index_html())
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+        return response
+    
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        # Skip API routes
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="Not found")
+        
+        # Serve static files
+        file_path = os.path.join(DIST_DIR, full_path)
+        if full_path and os.path.exists(file_path) and os.path.isfile(file_path):
+            return FileResponse(file_path)
+        
+        # SPA fallback - serve index.html
+        index_path = os.path.join(DIST_DIR, "index.html")
+        if os.path.exists(index_path):
+            return FileResponse(index_path)
+        
+        raise HTTPException(status_code=404, detail="Not found")
+
+# Root endpoint (API info)
+@app.get("/api")
 async def root():
     return {
         "name": "Helios API",
@@ -147,6 +211,6 @@ if __name__ == "__main__":
     uvicorn.run(
         "backend.main:app",
         host=settings.host,
-        port=settings.port,
+        port=9000,
         reload=settings.debug
     )
