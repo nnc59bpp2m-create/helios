@@ -1,8 +1,8 @@
 {
-  "last_check": "2026-09-07T06:45:04.014280",
-  "last_commit": "6e97e7e0755fae8d28adee04fcb47bd57bbdc927|chore: auto-save progress|2026-09-07 06:00:01 +0800",
-  "ci_status": "failure",
-  "health_score": 0,
+  "last_check": "2026-09-07T07:46:31.483180",
+  "last_commit": "a9e6b0461cf8d490ba3e659da46a1351d5afce32|chore: auto-save progress|2026-09-07 07:00:02 +0800",
+  "ci_status": "error",
+  "health_score": 15,
   "blocked_since": "2026-07-05T12:00:01.745799",
   "restart_count": 3
 }
